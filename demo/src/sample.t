@@ -19,33 +19,31 @@
 #include <adv3.h>
 #include <en_us.h>
 
+#include <bignum.h>
+
 versionInfo:    GameID
         name = 'intMath Library Demo Game'
         byline = 'Diegesis & Mimesis'
         desc = 'Demo game for the intMath library. '
         version = '1.0'
         IFID = '12345'
-	showAbout() {
-		"This is a simple test game that demonstrates the features
-		of the intMath library.
-		<.p>
-		Consult the README.txt document distributed with the library
-		source for a quick summary of how to use the library in your
-		own games.
-		<.p>
-		The library source is also extensively commented in a way
-		intended to make it as readable as possible. ";
-	}
-;
-
-startRoom:      Room 'Void'
-        "This is a featureless void."
-;
-
-me:     Person
-        location = startRoom
+	// No ABOUT because we're never interactive
+	showAbout() {}
 ;
 
 gameMain:       GameMainDef
-        initialPlayerChar = me
+	newGame() {
+		runTest();
+	}
+	runTest() {
+		local i, v;
+
+		for(i = 1; i <= 100000; i++) {
+			//v = new BigNumber(i).sqrt();
+			v = sqrtInt(i);
+			if(v) {}
+		}
+		"Ran <<toString(i - 1)>> passes\n ";
+	}
+	sayGoodbye() {}
 ;
