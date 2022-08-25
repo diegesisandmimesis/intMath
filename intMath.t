@@ -2,6 +2,8 @@
 #include <adv3.h>
 #include <en_us.h>
 
+#include <date.h>
+
 // Module ID for the library
 IntMathModuleID: ModuleID {
         name = 'intMath Library'
@@ -59,6 +61,7 @@ sqrtInt(v) {
 	// get out of skipping a few iterations would be lost to the overhead
 	// of computing the "real" bit width.
 	shift = 32;
+
 	// Make sure the shift is a multiple of 2.  Unnecessary unless we
 	// use a "dymanic" shift instead of a hardcoded value.
 	shift += shift & 1;
@@ -86,4 +89,31 @@ sqrtInt(v) {
 
 	// Return our estimate
 	return(r);
+}
+
+// Returns the width of an integer in bits
+bitWidthInt(v) {
+	local r;
+
+	if(v < 0)
+		return(-1);
+
+	r = 2;
+	while((v >> r) != 0)
+		r += 2;
+
+	return(r);
+}
+
+timestamp() {
+/*
+	local d, tz;
+
+	tz = new TimeZone('UTC');
+	d = new Date();
+	//"<<toString(d)>>\n ";
+	d = d.getClockTime(tz);
+	"<<toString(d[1])>> <<toString(d[2])>> <<toString(d[3])>> <<toString(d[4])>>\n ";
+*/
+	return(getTime()[9]);
 }

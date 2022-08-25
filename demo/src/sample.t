@@ -36,14 +36,38 @@ gameMain:       GameMainDef
 		runTest();
 	}
 	runTest() {
-		local i, v;
+		local d, i, n, t0, v;
 
-		for(i = 1; i <= 100000; i++) {
-			//v = new BigNumber(i).sqrt();
+		// Number of test passes
+		n = 100000;
+
+		// Get the current timestamp
+		t0 = timestamp();
+
+		"Running <<toString(n)>> passes:\n ";
+
+		// Run n calls to sqrtInt()
+		for(i = 1; i <= n; i++) {
 			v = sqrtInt(i);
+			// NOP so the compiler doesn't complain that we're
+			// not using v for anything
 			if(v) {}
 		}
-		"Ran <<toString(i - 1)>> passes\n ";
+
+		// Report the elapsed time
+		d = timestamp() - t0;
+		"\tsqrtInt() took <<toString(d)>> seconds\n ";
+	
+
+		// Run n calls to BigNumber().sqrt()
+		for(i = 1; i <= n; i++) {
+			v = new BigNumber(i).sqrt();
+			if(v) {}
+		}
+
+		// Report the elapsed time
+		d = timestamp() - t0;
+		"\tBigNumber().sqrt() took <<toString(d)>> seconds\n ";
 	}
 	sayGoodbye() {}
 ;
