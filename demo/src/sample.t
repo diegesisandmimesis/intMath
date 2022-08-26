@@ -39,7 +39,7 @@ gameMain:       GameMainDef
 		local d, i, n, t0, v;
 
 		// Number of test passes
-		n = 10000;
+		n = 100000;
 
 		// Get the current timestamp
 		t0 = timestamp();
@@ -56,7 +56,7 @@ gameMain:       GameMainDef
 
 		// Report the elapsed time
 		d = timestamp() - t0;
-		"\tsqrtInt() took <<toString(d)>> seconds\n ";
+		"\tsqrtInt() took <<toString(d)>> ms\n ";
 	
 
 		// Run n calls to BigNumber().sqrt()
@@ -67,11 +67,12 @@ gameMain:       GameMainDef
 
 		// Report the elapsed time
 		d = timestamp() - t0;
-		"\tBigNumber().sqrt() took <<toString(d)>> seconds\n ";
+		"\tBigNumber().sqrt() took <<toString(d)>> ms\n ";
 	}
 	sayGoodbye() {}
 ;
 
 timestamp() {
-	return(getTime()[9]);
+	//return(getTime()[9]);
+	return(getTime(GetTimeTicks));
 }
