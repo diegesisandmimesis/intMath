@@ -104,16 +104,3 @@ bitWidthInt(v) {
 
 	return(r);
 }
-
-timestamp() {
-/*
-	local d, tz;
-
-	tz = new TimeZone('UTC');
-	d = new Date();
-	//"<<toString(d)>>\n ";
-	d = d.getClockTime(tz);
-	"<<toString(d[1])>> <<toString(d[2])>> <<toString(d[3])>> <<toString(d[4])>>\n ";
-*/
-	return(getTime()[9]);
-}
