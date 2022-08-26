@@ -39,7 +39,7 @@ gameMain:       GameMainDef
 		local d, i, n, t0, v;
 
 		// Number of test passes
-		n = 100000;
+		n = 10000;
 
 		// Get the current timestamp
 		t0 = timestamp();

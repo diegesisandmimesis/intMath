@@ -104,3 +104,7 @@ bitWidthInt(v) {
 
 	return(r);
 }
+
+timestamp() {
+	return(getTime()[9]);
+}
