@@ -71,3 +71,7 @@ gameMain:       GameMainDef
 	}
 	sayGoodbye() {}
 ;
+
+timestamp() {
+	return(getTime()[9]);
+}
