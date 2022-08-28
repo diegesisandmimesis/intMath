@@ -2,8 +2,6 @@
 #include <adv3.h>
 #include <en_us.h>
 
-#include <date.h>
-
 // Module ID for the library
 IntMathModuleID: ModuleID {
         name = 'intMath Library'

@@ -19,6 +19,7 @@
 #include <adv3.h>
 #include <en_us.h>
 
+#include <date.h>
 #include <bignum.h>
 
 versionInfo:    GameID
