@@ -1,2 +1,2 @@
-name: FOO Library
+name: intMath Library
 source: intMath.t

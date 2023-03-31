@@ -22,15 +22,7 @@
 #include <date.h>
 #include <bignum.h>
 
-versionInfo:    GameID
-        name = 'intMath Library Demo Game'
-        byline = 'Diegesis & Mimesis'
-        desc = 'Demo game for the intMath library. '
-        version = '1.0'
-        IFID = '12345'
-	// No ABOUT because we're never interactive
-	showAbout() {}
-;
+versionInfo: GameID;
 
 gameMain:       GameMainDef
 	newGame() {

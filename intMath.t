@@ -102,3 +102,35 @@ bitWidthInt(v) {
 
 	return(r);
 }
+
+// Compute the greatest common divisor using Euclid's algorithm.
+// This relies on the fact that gcd(v0, v1) = gcd(v0, (v0 - v1)).
+// That is, any two numbers will share a greatest common divisor with
+// their difference.  So we just subtract the smaller number from
+// the bigger number, get rid of the bigger number, compare what was
+// the smaller number to the difference (we can't predict if the
+// difference will be larger or smaller than the original smaller number),
+// and repeat the process until the the two numbers we're left with are
+// equal.  That number is the greatest common divisor of the original
+// two numbers (and all of the intermediate values as well).
+gcd(v0, v1) {
+	local v;
+
+	// Make a vector containing the two values.
+	v = new Vector([ v0, v1 ]);
+
+	// We make v0 the largest value we currently have, and v1 is the
+	// smallest.  We continue until v0 and v1 are the same.
+	while((v0 = v[v.indexOfMax()]) != (v1 = v[v.indexOfMin()])) {
+		// We put the difference in the vector.
+		v.append(v0 - v1);
+
+		// We remove the largest of the three values we
+		// currently have, which is going to be v0 (because
+		// we already checked v1 is smaller at the start of
+		// the loop, and v0 > (v0 - v1).
+		v.removeElement(v0);
+	}
+
+	return(v0);
+}
