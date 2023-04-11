@@ -1,6 +1,6 @@
 #charset "us-ascii"
 //
-// gcdTest.t
+// extendedTest.t
 // Version 1.0
 // Copyright 2022 Diegesis & Mimesis
 //
@@ -8,7 +8,7 @@
 //
 // It can be compiled via the included makefile with
 //
-//	# t3make -f gcdTest.t3m
+//	# t3make -f extendedTest.t3m
 //
 // ...or the equivalent, depending on what TADS development environment
 // you're using.
@@ -41,12 +41,12 @@ gameMain:       GameMainDef
 		i = 0;
 		_tests.forEach(function(o) {
 			i += 1;
-			v = gcd(o[1], o[2]);
-			if(v != o[3]) {
+			v = gcdX(o[1], o[2]);
+			if(v[1] != o[3]) {
 				"ERROR:  test <<toString(i)>> failed,
 					gcd(<<toString(o[1])>>,
 					<<toString(o[2])>>) returned
-					<<toString(v)>>, not
+					<<toString(v[1])>>, not
 					<<toString(o[3])>>\n ";
 				err += 1;
 			}

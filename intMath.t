@@ -134,3 +134,58 @@ gcd(v0, v1) {
 
 	return(v0);
 }
+
+// Extended Euclidean algorithm.
+// Here we compute the greatest common divisor
+gcdX(v0, v1) {
+	local q, r, r0, r1, s, s0, s1, t, t0, t1;
+
+	// Set our initial "remainders" to be the arguments.
+	if(v0 > v1) {
+		r0 = v0;
+		r1 = v1;
+	} else {
+		r1 = v0;
+		r0 = v1;
+	}
+
+	// Initialize the Bezout coefficients.
+	s0 = 1;
+	s1 = 0;
+	t0 = 0;
+	t1 = 1;
+
+	// We keep going while the remainder is nonzero.
+	while(r1 != 0) {
+		// Compute the quotient of the remainders from the last
+		// iteration.
+		q = r0 / r1;
+
+		// Compute the new remainder.
+		r = r0 - (r1 * q);
+
+		// Compute the new Bezout coefficients.
+		s = s0 - (s1 * q);
+		t = t0 - (t1 * q);
+
+		// We always keep track of the values from two iterations,
+		// the 1-indexed ones are the "new" ones and the 0-indexed
+		// ones are the "old" ones.  Here we make the "new" values
+		// from the iteration we just finished the "old" values for
+		// the next iteration.
+		r0 = r1;
+		s0 = s1;
+		t0 = t1;
+
+		// And we make the values we just computed the "new" values
+		// for the next iteration.
+		r1 = r;
+		s1 = s;
+		t1 = t;
+	}
+
+	// Return the remainder (which will be the gcd) and the
+	// Bezout coefficients from the iteration before we got a
+	// zero remainder.
+	return([ r0, s0, t0 ]);
+}
