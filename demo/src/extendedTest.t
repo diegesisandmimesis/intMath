@@ -27,12 +27,16 @@ gameMain:       GameMainDef
 	// integers to find the greatest common divisor of, and the
 	// third column is the correct gcd.
 	_tests = static [
+		[ 3, 4, 1 ],
 		[ 8, 12, 4 ],
 		[ 48, 18, 6 ],
 		[ 54, 24, 6 ],
 		[ 252, 105, 21 ],
 		[ 423, 111, 3 ]
 	]
+
+	// Test-specific debugging output
+	_debug = nil
 
 	newGame() {
 		local err, i, v;
@@ -42,6 +46,17 @@ gameMain:       GameMainDef
 		_tests.forEach(function(o) {
 			i += 1;
 			v = gcdX(o[1], o[2]);
+			if(_debug) {
+				"gcd(<<toString(o[1])>>, <<toString(o[2])>>)
+					= <<toString(v[1])>>
+					\n\tBezout identity:
+						(<<toString(o[1])>>
+						* <<toString(v[2])>>)
+						+ (<<toString(o[2])>>
+						* <<toString(v[3])>>)
+					= <<toString(v[1])>>
+					\n ";
+			}
 			if(v[1] != o[3]) {
 				"ERROR:  test <<toString(i)>> failed,
 					gcd(<<toString(o[1])>>,
