@@ -139,7 +139,7 @@ gcd(v0, v1) {
 // Here we compute the greatest common divisor as well as the Bezout
 // coefficients.  The Bezout coefficients are integers x and y such that:
 //
-//	ax + by = gcd(a, b);
+//	ax + by = gcd(a, b)
 //
 // The return value is an array containing five elements: the gcd, the
 // two Bezout coefficients, and finally the quotients of the the Bezout
@@ -199,7 +199,7 @@ gcdX(v0, v1) {
 	if(((v0 < 0) ? -1 : 1) != ((s1 < 0) ? -1 : 1)) s1 *= -1;
 	if(((v1 < 0) ? -1 : 1) != ((t1 < 0) ? -1 : 1)) t1 *= -1;
 
-	// Return the remainder (which will be the gcd) and the
+	// Return the remainder (which will be the GCD) and the
 	// Bezout coefficients from the iteration before we got a
 	// zero remainder.
 	// We check the flag to see if we had to re-order the args, and
