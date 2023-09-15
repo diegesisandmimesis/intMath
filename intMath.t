@@ -298,3 +298,16 @@ crt(ar) {
 	// Return the result.
 	return([ s, n ]);
 }
+
+// Test the argument for primality in a semi-performant-for-small-values
+// manner.
+isPrime(v) {
+	local i;
+
+	if(v == nil) return(nil);
+	if(v <= 3) return(v > 1);
+	if(((v % 2) == 0) || (v % 3) == 0) return(nil);
+	for(i = 5; i * i <= v; i += 6)
+		if(((v % i) == 0) || ((v % (i + 2)) == 0)) return(nil);
+	return(true);
+}
