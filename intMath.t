@@ -311,3 +311,11 @@ isPrime(v) {
 		if(((v % i) == 0) || ((v % (i + 2)) == 0)) return(nil);
 	return(true);
 }
+
+toIntegerSafe(v) {
+	local r;
+
+	try { r = toInteger(v); }
+	catch(Exception e) { r = 2147483647; }
+	finally { return(r); }
+}
