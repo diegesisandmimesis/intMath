@@ -304,11 +304,74 @@ crt(ar) {
 isPrime(v) {
 	local i;
 
+	// Value can't be nil.
 	if(v == nil) return(nil);
+
+	// Primes are natural numbers greater than 1.
 	if(v <= 3) return(v > 1);
+
+	// Check for divisibility by 2 or 3.
 	if(((v % 2) == 0) || (v % 3) == 0) return(nil);
+
+	// All integers can be written in the form (6x + [0, 5]).
+	// 6x is not prime (because it's divisible by 6),
+	// (6x + 2) and (6x + 4) are not prime (because they're divisible by 2)
+	// (6x + 3) is not prime (because it's divisible by 3)
+	// So only integers of the form (6x + 1) and (6x + 5) are potentially
+	// primes.
+	// We checked 2 and 3 above, and 4 is obviously not prime, so we
+	// start counting at 5.  This means our first candidate is of the
+	// form 5 = 6(0) + 5, and the next after that will be 7 = 6(1) + 1.
+	// So if i = 5, then we need to check i and i + 2.  The pattern
+	// repeats, so each time through the loop we increment i by 6.
+	// If you're having trouble visualizing this, consider (6x + [0, 5])
+	// as a series of .s and ?s, where .s can't be prime and ?s might
+	// be.  Then the first six natural numbers have the pattern:
+	//
+	//		.?...?
+	//
+	// This repeats through all the natural numbers (shown here up to 35):
+	//
+	//		.?...?.?...?.?...?.?...?.?...?.?...?
+	//
+	// ...or if we break up the pattern by values for x (in (6x + [0, 5])):
+	//
+	//        6
+	//	  x         0       1      2      3      4      5
+	//	        |.?...?|.?...?|.?...?|.?...?|.?...?|.?...?|
+	//	  +      ++++++ ++++++ ++++++ ++++++ ++++++ ++++++
+	//	[0,5]    012345 012345 012345 012345 012345 012345
+	//	  =
+	//	                    11 111111 112222 222222 333333
+	//	         012345 678901 234567 890123 456789 012345
+	//                    ^                              ^
+	// ex:	     6(0) + 5 = 5                   6(5) + 1 = 31
+	//
+	// The important bit being that there are three times as many 0s as 1s,
+	// so if we're only checking the 1s, we're saving a LOT of effort.
+	//
+	// And since we're checking 2 and 3 and know 4 isn't prime, we start
+	// following the above pattern with an offset:
+	//
+	// skip		 xxxxx
+	//	        |.?...?|.?...?|.?...?|.?...?|.?...?|.?...?|
+	//		      ^  ^
+	//		      i  i+2
+	//
+	// ...increment i by 6:
+	//
+	//	        |.?...?|.?...?|.?...?|.?...?|.?...?|.?...?|
+	//		             ^  ^
+	//		             i  i+2
+	//
+	// ...and so on.
+	//
+	// We iterate i until i squared is > the number we're checking;
+	// if we haven't found any divisors by now there aren't any (apart
+	// from 1 and v itself).
 	for(i = 5; i * i <= v; i += 6)
 		if(((v % i) == 0) || ((v % (i + 2)) == 0)) return(nil);
+	// Yay, a prime.
 	return(true);
 }
 
