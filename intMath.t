@@ -382,3 +382,79 @@ toIntegerSafe(v) {
 	catch(Exception e) { r = 2147483647; }
 	finally { return(r); }
 }
+
+// Adaptation of Knuth's algorithm for converting integers to Roman numerals
+// from TeX.
+// The tads-gen function set provides a mechanism to do this via
+// sprintf('%R', [number to be converted]), but it doesn't use subtractive
+// notation for tens (1944 becomes MCMXXXXIV instead of MCMXLIV, for example).
+toRoman(n) {
+	local j, k, r, s, str, u, v;
+
+	str = 'm2d5c2l5x2v5i';
+
+	n = toInteger(n);
+	if(n < 1)
+		return(nil);
+
+	j = 1;
+	v = 1000;
+	r = new StringBuffer();
+	while(true) {
+		while(n >= v) {
+			r.append(str.substr(j, 1));
+			n -= v;
+		}
+
+		if(n <= 0)
+			return(toString(r).toUpper());
+
+		k = j + 2;
+		s = toInteger(str.substr(k - 1, 1));
+		u = v / s;
+
+		if(s == 2) {
+			k += 2;
+			u = u / toInteger(str.substr(k - 1, 1));
+		}
+
+		if(n + u >= v) {
+			r.append(str.substr(k, 1));
+			n += u;
+		} else {
+			j += 2;
+			v = v / toInteger(str.substr(j - 1, 1));
+		}
+	}
+}
+
+// Convert a Roman numeral string to an integer.
+romanToInteger(str) {
+	local ar, i, r, t, v;
+
+	if((str == nil) || !str.ofKind(String))
+		return(nil);
+
+	t = [
+		'm' -> 1000,
+		'd' -> 500,
+		'c' -> 100,
+		'l' -> 50,
+		'x' -> 10,
+		'v' -> 5,
+		'i' -> 1
+	];
+
+	ar = str.split();
+	v = new Vector(ar.length);
+	ar.forEach({ x: v.append(t[x.toLower()]) });
+	r = 0;
+	for(i = 1; i <= v.length; i++) {
+		if((i < v.length) && (v[i] < v[i + 1]))
+			r -= v[i];
+		else
+			r += v[i];
+	}
+
+	return(r);
+}
