@@ -2,6 +2,8 @@
 #include <adv3.h>
 #include <en_us.h>
 
+#include "intMath.h"
+
 // Module ID for the library
 IntMathModuleID: ModuleID {
         name = 'intMath Library'
@@ -455,6 +457,18 @@ romanToInteger(str) {
 		else
 			r += v[i];
 	}
+
+	return(r);
+}
+
+// Naive factorial implementation.
+function factorial(v?) {
+	local i, r;
+
+	if(!isInteger(v)) return(nil);
+	r = 1;
+	for(i = 2; i <= v; i++)
+		r *= i;
 
 	return(r);
 }

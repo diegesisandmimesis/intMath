@@ -2,8 +2,9 @@
 // intMath.h
 //
 
-// Uncomment to enable debugging options,
-//#define __DEBUG_INT_MATH
+#ifndef isInteger
+#define isInteger(v) ((v != nil) && (dataType(v) == TypeInt))
+#endif
 
 // Do not comment out.  Used for dependency checking.
 #define INT_MATH_H
