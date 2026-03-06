@@ -60,7 +60,7 @@ sqrtInt(v) {
 	// in TADS3 isn't as efficient as doing them in C, so any speedup we'd
 	// get out of skipping a few iterations would be lost to the overhead
 	// of computing the "real" bit width.
-	shift = 32;
+	shift = bitWidthInt(v);
 
 	// Make sure the shift is a multiple of 2.  Unnecessary unless we
 	// use a "dymanic" shift instead of a hardcoded value.
@@ -103,6 +103,24 @@ bitWidthInt(v) {
 		r += 2;
 
 	return(r);
+}
+
+// Integer square root via Newton-Raphson.  Probably faster than the above
+// for small values.
+sqrtIntNR(v) {
+	local x, y;
+
+	if(v <= 0)
+		return(0);
+
+	x = v;
+	y = (x + 1) / 2;
+	while(y < x) {
+		x = y;
+		y = (x + (v / x)) / 2;
+	}
+
+	return(x);
 }
 
 // Compute the greatest common divisor using Euclid's algorithm.
