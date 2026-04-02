@@ -116,7 +116,7 @@ class Uint32: object
 
 	// Divide this uint32 by the argument uint32.
 	divide(v) {
-		local q_hi, q_lo, r_hi, r_lo, i, bit, n_lo, b, top;
+		local b, bit, i, i0, n_lo, r_hi, r_lo, q_hi, q_lo;
 
 		if((v == nil) || !v.ofKind(Uint32))
 			return(nil);
@@ -125,16 +125,19 @@ class Uint32: object
 		if((v._hi == 0) && (v._lo == 0))
 			return(nil);
 
+		// Quotient halves.
 		q_hi = 0;
 		q_lo = 0;
+
+		// Remainder halves.
 		r_hi = 0;
 		r_lo = 0;
 
 		// If the high 16 bits are zero we can skip half the
 		// iterations.
-		top = (_hi != 0) ? 31 : 15;
+		i0 = (_hi != 0) ? 31 : 15;
 
-		for(i = top; i >= 0; i--) {
+		for(i = i0; i >= 0; i--) {
 			// Remainder.
 			r_hi = ((r_hi << 1) | ((r_lo >>> 15) & 1)) & 0xffff;
 			r_lo = (r_lo << 1) & 0xffff;
@@ -176,6 +179,7 @@ class Uint32: object
 	operator *(x) { return(multiply(x)); }
 	operator /(x) { return(divide(x)); }
 
+	// Left rotation.
 	rotateLeft(n?) {
 		local hi, lo, n_hi, n_lo, tmp;
 
