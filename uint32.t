@@ -91,6 +91,9 @@ class Uint32: object
 	multiply(v) {
 		local hi, lo, t0, t1, t2, t3;
 
+		if((v == nil) || !v.ofKind(Uint32))
+			return(nil);
+
 		// Partial products for each byte.
 		t0 = _b0 * v._b0;
 		t1 = _b0 * v._b1 + _b1 * v._b0;
@@ -104,7 +107,7 @@ class Uint32: object
 		t2 += (t1 >>> 8);
 		t1 &= 0xff;
 
-		t3 += (t2 >> 8);
+		t3 += (t2 >>> 8);
 		t2 &= 0xff;
 		t3 &= 0xff;
 

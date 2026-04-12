@@ -260,7 +260,7 @@ rlc(a, b, m) {
 	r = (b * ar[2]) % m;
 
 	// Normalize the remainder.
-	while(r > m) r += m;
+	while(r > m) r -= m;
 	while(r < 0) r += m;
 
 	// Return the reduced remainder and modulus.
